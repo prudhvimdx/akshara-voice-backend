@@ -64,64 +64,6 @@ def text_compare(original_text, audio_text):
     return {"feedback": feedback, "distance": distance}
 
 
-def audio_check_old(audio_file, original_text):
-    # Initialize the recognizer
-    recognizer = sr.Recognizer()
-    print('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB')
-    # Load the audio file
-    with sr.AudioFile(audio_file) as source:
-        # Adjust for ambient noise (optional)
-        print('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC')
-        recognizer.adjust_for_ambient_noise(source)
-        
-        # print("Listening to the audio...")
-        # original_text = "The speaker is speaking too quickly or too slowly. Google Speech Recognition is trained on a variety of speech speeds, but it may not be able to accurately transcribe audio that is outside of its expected range."
-        
-        try:
-            # Record audio data from the file
-            audio_data = recognizer.record(source)
-            print("Audio recorded successfully.")
-            
-            # Recognize the audio and convert to text
-            audio_text = recognizer.recognize_google(audio_data, language="en-US")
-            print("Recognized text:")
-            # print(audio_text)
-            result = text_compare(original_text, audio_text)
-            print("Comparison Done")
-            return result
-
-        
-        except sr.RequestError as e:
-            return {"error": f"Could not request results from Google Speech Recognition service; {e}"}
-        except sr.UnknownValueError:
-            return { "error" : "Google Speech Recognition could not understand the audio."}
-    
-    # # recognizer.adjust_for_ambient_noise(source)
-    # print('CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC')
-    
-    # # print("Listening to the audio...")
-    # # original_text = "The speaker is speaking too quickly or too slowly. Google Speech Recognition is trained on a variety of speech speeds, but it may not be able to accurately transcribe audio that is outside of its expected range."
-    
-    # try:
-    #     # Record audio data from the file
-    #     audio_data = recognizer.record(source)
-    #     print("Audio recorded successfully.")
-        
-    #     # Recognize the audio and convert to text
-    #     audio_text = recognizer.recognize_google(audio_data, language="en-US")
-    #     print("Recognized text:")
-    #     # print(audio_text)
-    #     result = text_compare(original_text, audio_text)
-    #     print("Comparison Done")
-    #     return result
-
-    
-    # except sr.RequestError as e:
-    #     return {"error": f"Could not request results from Google Speech Recognition service; {e}"}
-    # except sr.UnknownValueError:
-    #     return { "error" : "Google Speech Recognition could not understand the audio."}
-
-
 
 def audio_check(audio, original_text):
     recognizer = sr.Recognizer()
